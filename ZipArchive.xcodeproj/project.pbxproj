@@ -28,7 +28,7 @@
 		1DA99B9C15ABB4C300383EB4 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "~/Git/Apps/Macintosh/Libs/EmbedableFrameworks";
+			dstPath = $SRCROOT/../EmbedableFrameworks;
 			dstSubfolderSpec = 0;
 			files = (
 				1DA99B9215ABB4BA00383EB4 /* ZipArchive.framework in CopyFiles */,
