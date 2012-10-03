@@ -178,6 +178,40 @@
 	_password = password;
 	return [self UnzipOpenFile:zipFileURL];
 }
+-(UInt64) UnzipFileSize
+{
+	int					ret = unzGoToFirstFile( _unzFile );
+	unz_file_info		fileInfo ={0};
+	UInt64				totalPackageSize = 0;
+	
+	if( ret!=UNZ_OK )
+	{
+		[self OutputErrorMessage:@"Failed"];
+		return 0;
+	}
+	//
+	//	Loop through all files in the package to get the total size
+	//
+	do {
+		if( [_password length]==0 )
+			ret = unzOpenCurrentFile( _unzFile );
+		else
+			ret = unzOpenCurrentFilePassword( _unzFile, [_password cStringUsingEncoding:NSASCIIStringEncoding] );
+		if( ret!=UNZ_OK ) {
+			[self OutputErrorMessage:@"Error occurs"];
+			break;
+		}
+		ret = unzGetCurrentFileInfo(_unzFile, &fileInfo, NULL, 0, NULL, 0, NULL, 0);
+		if( ret!=UNZ_OK ) {
+			[self OutputErrorMessage:@"Error occurs while getting file info"];
+			unzCloseCurrentFile( _unzFile );
+			break;
+		}
+		totalPackageSize += fileInfo.uncompressed_size;
+		ret = unzGoToNextFile( _unzFile );
+	} while( ret==UNZ_OK );
+	return totalPackageSize;
+}
 
 -(BOOL) UnzipFileTo:(NSURL *) destinationURL 
 		  overWrite:(BOOL) overwrite 

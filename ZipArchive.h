@@ -71,4 +71,5 @@
 		  overWrite:(BOOL) overwrite 
 	  statusDisplay:(BOOL (^)(float percentDone))statusDisplay;
 -(BOOL) UnzipCloseFile;
+-(UInt64) UnzipFileSize;
 @end
