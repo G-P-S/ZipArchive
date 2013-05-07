@@ -163,14 +163,14 @@
 		return NO;
 	}
 	_unzFile = unzOpen( (const char*)[zipFilePath UTF8String] );
-	if( _unzFile )
-	{
-		unz_global_info  globalInfo = {0};
-		if( unzGetGlobalInfo(_unzFile, &globalInfo )==UNZ_OK )
-		{
-			NSLog(@"%ld entries in the zip file",globalInfo.number_entry );
-		}
-	}
+//	if( _unzFile )
+//	{
+//		unz_global_info  globalInfo = {0};
+//		if( unzGetGlobalInfo(_unzFile, &globalInfo )==UNZ_OK )
+//		{
+//			NSLog(@"%ld entries in the zip file",globalInfo.number_entry );
+//		}
+//	}
 	return _unzFile!=NULL;
 }
 
