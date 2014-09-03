@@ -373,7 +373,7 @@ local int ziplocal_getShort (pzlib_filefunc_def,filestream,pX)
     uLong *pX;
 {
     uLong x ;
-    int i;
+    int i=0;
     int err;
 
     err = ziplocal_getByte(pzlib_filefunc_def,filestream,&i);
@@ -401,7 +401,7 @@ local int ziplocal_getLong (pzlib_filefunc_def,filestream,pX)
     uLong *pX;
 {
     uLong x ;
-    int i;
+    int i=0;
     int err;
 
     err = ziplocal_getByte(pzlib_filefunc_def,filestream,&i);
@@ -503,7 +503,7 @@ extern zipFile ZEXPORT zipOpen2 (pathname, append, globalcomment, pzlib_filefunc
     zlib_filefunc_def* pzlib_filefunc_def;
 {
     zip_internal ziinit;
-    zip_internal* zi;
+    zip_internal* zi=NULL;
     int err=ZIP_OK;
 
 
@@ -609,6 +609,7 @@ extern zipFile ZEXPORT zipOpen2 (pathname, append, globalcomment, pzlib_filefunc
 
         if (err!=ZIP_OK)
         {
+			free(zi);
             ZCLOSE(ziinit.z_filefunc, ziinit.filestream);
             return NULL;
         }
